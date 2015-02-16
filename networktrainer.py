@@ -31,7 +31,7 @@ def lireDataset():
 		inp.insert(-1,chaine(line))
 		line=f.readline()
 		line=line.rstrip("\n")
-		tar.insert(-1,[(int)(line)])
+		tar.insert(-1,[2*((int)(line))-1])
 		line=f.readline()
 		line=line.rstrip("\n")
 	f.close()
@@ -107,11 +107,16 @@ def construireDataset():
 			f.write("\n")
 	f.close()
 
-net=construireReseau()
-o=lireDataset()
 
-error=net.train(o[0],o[1],epochs=500, show=100, goal=0.02)
+def outputof(net, input):
+	return net.sim([chaine(input)])
 
-net.save("network")
+
+#net=construireReseau()
+#o=lireDataset()
+
+#error=net.train(o[0],o[1],epochs=500, show=10, goal=0.02)
+
+#net.save("network")
 
 
