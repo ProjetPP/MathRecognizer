@@ -37,6 +37,11 @@ def lireDataset():
 	f.close()
 	return [inp,tar]
 
+QUESTION_WORDS = ["Where", "where", "In wh", "How", "Is", "(?,", "What",
+        "what", "When", "Qui", "Quel", "qui", "Who", "who", "How", "how"]
+MATH_WORDS = ["Integrate", "Limit", "Solve", "Sum", "Derivate", "limit",
+        "solve", "sum", "derivate", "integrate", "dsolve", "Dsolve"]
+
 def construireDataset():
 	json_data=open('Documents/logger.frontend.askplatyp.us.json')
 	data = json.load(json_data)
@@ -45,61 +50,9 @@ def construireDataset():
 	for entrie in data :
 		f.write(entrie[0])
 		f.write("\n")
-		if entrie[0].startswith("Where"):
+                if any(entrie[0].startswith(x) for x in QUESTION_WORDS):
 			f.write("0\n")
-		elif entrie[0].startswith("where"):
-			f.write("0\n")
-		elif entrie[0].startswith("In wh"):
-			f.write("0\n")
-		elif entrie[0].startswith("How"):
-			f.write("0\n")
-		elif entrie[0].startswith("Is"):
-			f.write("0\n")
-		elif entrie[0].startswith("(?,"):
-			f.write("0\n")
-		elif entrie[0].startswith("What"):
-			f.write("0\n")
-		elif entrie[0].startswith("what"):
-			f.write("0\n")
-		elif entrie[0].startswith("When"):
-			f.write("0\n")
-		elif entrie[0].startswith("Qui"):
-			f.write("0\n")
-		elif entrie[0].startswith("Quel"):
-			f.write("0\n")
-		elif entrie[0].startswith("qui"):
-			f.write("0\n")
-		elif entrie[0].startswith("Who"):
-			f.write("0\n")
-		elif entrie[0].startswith("who"):
-			f.write("0\n")
-		elif entrie[0].startswith("How"):
-			f.write("0\n")
-		elif entrie[0].startswith("how"):
-			f.write("0\n")
-		elif entrie[0].startswith("Integrate"):
-			f.write("1\n")
-		elif entrie[0].startswith("Limit"):
-			f.write("1\n")
-		elif entrie[0].startswith("Solve"):
-			f.write("1\n")
-		elif entrie[0].startswith("Sum"):
-			f.write("1\n")
-		elif entrie[0].startswith("Derivate"):
-			f.write("1\n")
-		elif entrie[0].startswith("limit"):
-			f.write("1\n")
-		elif entrie[0].startswith("solve"):
-			f.write("1\n")
-		elif entrie[0].startswith("sum"):
-			f.write("1\n")
-		elif entrie[0].startswith("derivate"):
-			f.write("1\n")
-		elif entrie[0].startswith("integrate"):
-			f.write("1\n")
-		elif entrie[0].startswith("dsolve"):
-			f.write("1\n")
-		elif entrie[0].startswith("Dsolve"):
+                elif any(entrie[0].startswith(x) for x in MATH_WORDS):
 			f.write("1\n")
 		else :
 			n=input(entrie[0])
