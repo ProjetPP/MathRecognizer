@@ -73,6 +73,17 @@ def buildDataset(loggerinputfile,datasetfile):
 def outputof(net, input):
 	return net.sim([chaine(input)])
 
+#train the network
+def trainnetwork(net, dataset, numberepochs):
+	net.train(dataset[0],dataset[1],epochs=numberepochs, show=10, goal=0.02)
+
+#load network
+def loadnetwork(file):
+	return nl.load(file)
+
+#save network
+def loadnetwork(net,file):
+	net.save(file)
 
 #net=construireReseau()
 #o=lireDataset()
