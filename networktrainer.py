@@ -17,17 +17,17 @@ def lireDataset():
 	f=open("testpymath")
 	inp=[]
 	tar=[]
-	line=f.readline()
-	line=line.rstrip("\n")
-	while line!="":
-		inp.insert(-1,chaine(line))
+        while True:
 		line=f.readline()
 		line=line.rstrip("\n")
-		tar.insert(-1,[2*((int)(line))-1])
+                if not line:
+                    break
+		inp.append(chaine(line))
 		line=f.readline()
 		line=line.rstrip("\n")
+		tar.append([2*int(line)-1])
 	f.close()
-	return [inp,tar]
+	return [reversed(inp),reversed(tar)]
 
 def construireDataset():
 	json_data=open('Documents/logger.frontend.askplatyp.us.json')
