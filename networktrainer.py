@@ -3,16 +3,10 @@ import numpy as np
 import json
 
 def chaine(str):
-	L=[]
-	i=0
-	for c in str:
-		L.insert(i,ord(c)/256)
-		i=i+1
-		if i==255 :
-			break
-	for a in range(0,256-len(L)):
-		L.insert(i,0)
-	return L
+    L = [ord(c)/256 for c in str[:256]]
+    for i in range(len(L), 256):
+        L.append(0)
+    return L
 
 def construireReseau():
 	L=[]
