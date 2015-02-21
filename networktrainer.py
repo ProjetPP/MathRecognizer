@@ -1,7 +1,10 @@
+#neural network library
 import neurolab as nl
+#other dependancies
 import numpy as np
 import json
 
+#compute vector representant for network entry
 def chaine(str):
 	L=[]
 	i=0
@@ -14,15 +17,17 @@ def chaine(str):
 		L.insert(i,0)
 	return L
 
-def construireReseau():
+#So it name is like, builds the neural network
+def buildNetwork():
 	L=[]
 	for i in range(0,256):
 		L.insert(-1,[0,1])
 	net = nl.net.newff(L,[5,1])
 	return net
 
-def lireDataset():
-	f=open("testpymath")
+#Load Dataset
+def readDataset(thefile):
+	f=open(thefile)
 	inp=[]
 	tar=[]
 	line=f.readline()
@@ -37,30 +42,34 @@ def lireDataset():
 	f.close()
 	return [inp,tar]
 
+
+#cheating tricks to build dataset
 QUESTION_WORDS = ["Where", "where", "In wh", "How", "Is", "(?,", "What",
         "what", "When", "Qui", "Quel", "qui", "Who", "who", "How", "how"]
 MATH_WORDS = ["Integrate", "Limit", "Solve", "Sum", "Derivate", "limit",
         "solve", "sum", "derivate", "integrate", "dsolve", "Dsolve"]
-
-def construireDataset():
-	json_data=open('Documents/logger.frontend.askplatyp.us.json')
+#Build dataset, WARNING manual filling takes lot of time
+#Give page logger.frontend.askplatyp.us as entry
+#Type 1 for math, 0 otherwise
+def buildDataset(loggerinputfile,datasetfile):
+	json_data=open(loggerinputfile)
 	data = json.load(json_data)
 	json_data.close()
-	f=open("testpymath","w")
-	for entrie in data :
-		f.write(entrie[0])
+	f=open(datasetfile,"w")
+	for entry in data :
+		f.write(entry[0])
 		f.write("\n")
-                if any(entrie[0].startswith(x) for x in QUESTION_WORDS):
+                if any(entry[0].startswith(x) for x in QUESTION_WORDS):
 			f.write("0\n")
-                elif any(entrie[0].startswith(x) for x in MATH_WORDS):
+                elif any(entry[0].startswith(x) for x in MATH_WORDS):
 			f.write("1\n")
 		else :
-			n=input(entrie[0])
+			n=input(entry[0])
 			f.write(n)
 			f.write("\n")
 	f.close()
 
-
+#Just compute output of network with a word
 def outputof(net, input):
 	return net.sim([chaine(input)])
 
