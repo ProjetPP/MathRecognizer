@@ -9,9 +9,7 @@ def chaine(str):
     return L
 
 def construireReseau():
-	L=[]
-	for i in range(0,256):
-		L.insert(-1,[0,1])
+	L = [(0, 1)] * 256
 	net = nl.net.newff(L,[5,1])
 	return net
 
